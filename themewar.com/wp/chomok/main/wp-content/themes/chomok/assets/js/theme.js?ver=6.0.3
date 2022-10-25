@@ -1,0 +1,938 @@
+/*
+Theme Name: Chomok
+Theme URI: http://themewar.com/wp/chomok/
+Author: ThemeWar
+Author URI: http://themewar.com/
+Description: Chomok - Modern Architecture & Interior WordPress Theme
+Version: 1.0
+License:
+License URI:
+*/
+ 
+/*=======================================================================
+ [Table of contents]
+ =========================================================================
+ 01. Mobile Menu
+ 02. Sticky Header
+ 03. Strech Column
+ 04. All Slider
+ 05. Funfact Counters
+ 06. Projects Filter
+ 07. All Popup
+ 08. Skill Bar
+ 09. Menu PopUp 
+ 10. Back To Top
+ 11. Qty
+ 12. Preloader
+ 13. Back To Top
+ 14. Google Maps
+ 15. Nice Selects
+*/
+
+(function ($) {
+    'use strict';
+
+
+    /*--------------------------------------------------------
+    / 01. Mobile Menu
+    /---------------------------------------------------------*/
+    $(window).on("load resize", function (e) {
+        if ($(window).width() < 1199) {
+            $('.cmMainmenu li.menu-item-has-children > a').on('click', function(e){
+                e.preventDefault();
+                $(this).siblings('ul').slideToggle();
+            });
+            $('.menuToggler').on('click', function(e){
+                e.preventDefault();
+                $('.cmMainmenu').slideToggle();
+                $(this).toggleClass('active');
+            });
+        };
+    });
+
+    /*--------------------------------------------------------
+    / 02. Sticky Header
+    /---------------------------------------------------------*/
+    if($(".isSticky").length > 0){
+        var header_height = $(".isSticky").height();
+        $(window).on('scroll', function(){
+            if($(window).scrollTop() > 300)
+            {
+                $('.blanks').css('height', header_height);
+                $(".isSticky").addClass('fixedHeader animated slideInDown');
+            }else
+            {
+                $('.blanks').css('height', '0');
+                $(".isSticky").removeClass('fixedHeader animated slideInDown');
+            }
+        });
+    }
+    /*--------------------------------------------------------
+    / 03. Strech Column
+    /---------------------------------------------------------*/
+    function tw_stretch() {
+        var i = $(window).width();
+        $(".row .tw-stretch-element-inside-column").each(function () {
+            var $this = $(this),
+                row = $this.closest(".row"),
+                cols = $this.closest('[class^="col-"]'),
+                colsheight = $this.closest('[class^="col-"]').height(),
+                rect = this.getBoundingClientRect(),
+                l = row[0].getBoundingClientRect(),
+                s = cols[0].getBoundingClientRect(),
+                r = rect.left,
+                d = i - rect.right,
+                c = l.left + (parseFloat(row.css("padding-left")) || 0),
+                u = i - l.right + (parseFloat(row.css("padding-right")) || 0),
+                p = s.left,
+                f = i - s.right,
+                styles = {
+                    "margin-left": 0,
+                    "margin-right": 0
+                };
+            if (Math.round(c) === Math.round(p)) {
+                var h = parseFloat($this.css("margin-left") || 0);
+                styles["margin-left"] = h - r;
+            }
+            if (Math.round(u) === Math.round(f)) {
+                var w = parseFloat($this.css("margin-right") || 0);
+                styles["margin-right"] = w - d;
+            }
+            $this.css(styles);
+        });
+    }
+    tw_stretch();
+
+    /*--------------------------------------------------------
+    / 04. All Slider
+    /---------------------------------------------------------*/
+    $(window).on('elementor/frontend/init', function() {
+        elementorFrontend.hooks.addAction('frontend/element_ready/tw-hero-slider.default', function($scope, $) {
+            var $wrap    = $scope.find('.slider03');
+            var $slide   = $scope.find('.homeBannarSlider03');
+            
+            var autoplay = ($wrap.attr('data-autoplay') == 1 ) ? true : false;
+            var loop     = ($wrap.attr('data-loop') == 1 ) ? true : false;
+            var nav      = ($wrap.attr('data-nav') == 1 ) ? true : false;
+            var dots     = ($wrap.attr('data-dots') == 1 ) ? true : false;
+            
+            $slide.owlCarousel({
+                margin: 92,
+                autoplay: autoplay,
+                loop: loop,
+                nav: nav,
+                navText: ['<i class="Chmk-snake_arrow_right"></i>', '<i class="Chmk-snake_arrow_right"></i>'],
+                dots: dots,
+                items: 3,
+                center: true,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        center: true,
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    1200: {
+                        items: 3
+                    }
+                }
+            });
+        });
+    });
+    // Service Post
+    $(window).on('elementor/frontend/init', function () {
+        elementorFrontend.hooks.addAction('frontend/element_ready/tw-services.default', function ($scope, $) {
+            var $wrap  = $scope.find('.serviceSlider_wrap');
+            var $slide = $scope.find('.serviceSlider');
+            //var $slide2 = $scope.find('.serviceSlider02');
+
+            var autoplay = ($wrap.attr('data-autoplay') == '1') ? true : false;
+            var loop     = ($wrap.attr('data-loop') == '1') ? true : false;
+            var nav      = ($wrap.attr('data-nav') == '1') ? true : false;
+            var dots     = ($wrap.attr('data-dots') == '1') ? true : false;
+            var item1    = ($wrap.attr('data-item1') != '') ? parseInt($wrap.attr('data-item1'), 10) : 3;
+            var item2    = ($wrap.attr('data-item2') != '') ? parseInt($wrap.attr('data-item2'), 10) : 3;
+            var item3    = ($wrap.attr('data-item3') != '') ? parseInt($wrap.attr('data-item3'), 10) : 2;
+            var gapping  = ($wrap.attr('data-gapping')*1 > 0 ) ? $wrap.attr('data-gapping')*1 : 0;
+
+            if ($slide.length > 0) {
+                $slide.owlCarousel({
+                    autoplay: autoplay,
+                    loop: loop,
+                    margin: gapping,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    responsiveClass: true,
+                    smartSpeed: 600,
+                    responsive: {
+                        0: {
+                            items: 1,
+                        },
+                        768: {
+                            items: item3
+                        },
+                        1023: {
+                            items: item2
+                        },
+                        1200: {
+                            items: item1
+                        }
+                    }
+                });
+            }
+        });
+    });
+    // testimonial Post
+    $(window).on('elementor/frontend/init', function() {
+        elementorFrontend.hooks.addAction('frontend/element_ready/tw-testimonial.default', function($scope, $) {
+            var $wrap    = $scope.find('.testi_wrap');
+            var tslider1 = $scope.find('.testimonialSlider');
+            var tslider2 = $scope.find('.testimonialSlider02');
+            
+            var autoplay = ($wrap.attr('data-autoplay') == 1 ) ? true : false;
+            var loop     = ($wrap.attr('data-loop') == 1 ) ? true : false;
+            var nav      = ($wrap.attr('data-nav') == 1 ) ? true : false;
+            var dots     = ($wrap.attr('data-dots') == 1 ) ? true : false;
+            
+            if (tslider1.length > 0) {
+                var tslider1_obj = tslider1.owlCarousel({
+                    margin: 0,
+                    autoplay: autoplay,
+                    loop: loop,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    items: 1
+                });
+            }
+            if (tslider2.length > 0) {
+                var tslider2_obj = tslider2.owlCarousel({
+                    margin: 30,
+                    autoplay: autoplay,
+                    loop: loop,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    items: 3,
+                    center: true,
+                    responsiveClass: true,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        768: {
+                            items: 2
+                        },
+                        1200: {
+                            items: 3
+                        }
+                    }
+                });
+            }
+        });
+    });
+    // Folio post
+    $(window).on('elementor/frontend/init', function() {
+        elementorFrontend.hooks.addAction('frontend/element_ready/tw-folio.default', function($scope, $) {
+            var stretch = $scope.find('.tw-stretch-element-inside-column-slider');
+            if (stretch.length > 0 && $('body').hasClass('elementor-editor-active')) {
+                tw_stretch_slider();
+            }
+            var $wrap               = $scope.find('.project_slider_wrap');
+            var $project_slider     = $scope.find('.project_slider');
+            var $projectSliderPJT03 = $scope.find('.projectSliderPJT03');
+            var $projectSliderPJT04 = $scope.find('.projectSliderPJT04');
+            var $projecetFullWidthSlider = $scope.find('.projecetFullWidthSlider');
+            var $relatedPostSliderFilter01 = $scope.find('.relatedPostSliderFilter01');
+
+            var autoplay = ($wrap.attr('data-autoplay') == 1 ) ? true : false;
+            var loop     = ($wrap.attr('data-loop') == 1 ) ? true : false;
+            var nav      = ($wrap.attr('data-nav') == 1 ) ? true : false;
+            var dots     = ($wrap.attr('data-dots') == 1 ) ? true : false;
+
+            if($project_slider.length > 0){
+                var project_slider_obj = $project_slider.owlCarousel({
+                    autoplay: autoplay,
+                    loop: loop,
+                    margin: 30,
+                    responsiveClass: true,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    autoWidth: true,
+                    responsive:{
+                        0:{
+                            items: 1,
+                            autoWidth: false
+                        },
+                        768:{
+                            items: 1
+                        },
+                        1024:{ 
+                            items: 2
+                        },
+                        1200:{
+                            items: 3
+                        }
+                    }
+                });
+                $('.filter_menu').on('click', '.filter_item', function(e) {
+                    e.preventDefault();
+                    var slider_height = $project_slider.height();
+                    $project_slider.parent().css('min-height', slider_height+'px');
+
+                    var $item = $(this);
+                    var filter = $item.data( 'owl-filter' );
+                    $('.filter_menu .filter_item').removeClass('active');
+                    $item.addClass('active');
+                    project_slider_obj.owlcarousel2_filter( filter );
+                });
+            }
+            if($projectSliderPJT03.length > 0){
+                var projectSliderPJT03_obj = $projectSliderPJT03.owlCarousel({
+                    margin: 30,
+                    autoplay: autoplay,
+                    loop: loop,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    items: 5,
+                    responsiveClass: true,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        768: {
+                            items: 2
+                        },
+                        992: {
+                            items: 3
+                        },
+                        1200: {
+                            items: 4
+                        },
+                        1600: {
+                            items: 5
+                        }
+                    }
+                });
+                $('.filter_menu').on('click', '.filter_item', function(e) {
+                    e.preventDefault();
+                    var slider_height = $projectSliderPJT03.height();
+                    $projectSliderPJT03.parent().css('min-height', slider_height+'px');
+
+                    var $item = $(this);
+                    var filter = $item.data( 'owl-filter' );
+                    $('.filter_menu .filter_item').removeClass('active');
+                    $item.addClass('active');
+                    projectSliderPJT03_obj.owlcarousel2_filter( filter );
+                });
+            }
+            if($projectSliderPJT04.length > 0){
+                var projectSliderPJT04_obj = $projectSliderPJT04.owlCarousel({
+                    margin: 30,
+                    autoplay: autoplay,
+                    loop: loop,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    center: true,
+                    responsiveClass: true,
+                    items: 2.1,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        768: {
+                            items: 2
+                        },
+                        1200: {
+                            items: 2
+                        }
+                    }
+                });
+                $('.filter_menu').on('click', '.filter_item', function(e) {
+                    e.preventDefault();
+                    var slider_height = $projectSliderPJT04.height();
+                    $projectSliderPJT04.parent().css('min-height', slider_height+'px');
+
+                    var $item = $(this);
+                    var filter = $item.data( 'owl-filter' );
+                    $('.filter_menu .filter_item').removeClass('active');
+                    $item.addClass('active');
+                    projectSliderPJT04_obj.owlcarousel2_filter( filter );
+                });
+            }
+            if($projecetFullWidthSlider.length > 0){
+                $projecetFullWidthSlider.owlCarousel({
+                    margin: 0,
+                    center: true,
+                    autoplay: autoplay,
+                    loop: loop,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    items: 1
+                });
+            }
+            if($relatedPostSliderFilter01.length > 0){
+                var relatedPostSliderFilter01_obj = $relatedPostSliderFilter01.owlCarousel({
+                    margin: 30,
+                    autoplay: autoplay,
+                    loop: loop,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    items: 3,
+                    responsiveClass: true,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        768: {
+                            items: 2
+                        },
+                        992: {
+                            items: 3
+                        },
+                        1200: {
+                            items: 3
+                        }
+                    }
+                });
+                $('.filter_menu').on('click', '.filter_item', function(e) {
+                    e.preventDefault();
+                    var slider_height = $relatedPostSliderFilter01.height();
+                    $relatedPostSliderFilter01.parent().css('min-height', slider_height+'px');
+
+                    var $item = $(this);
+                    var filter = $item.data( 'owl-filter' );
+                    $('.filter_menu .filter_item').removeClass('active');
+                    $item.addClass('active');
+                    relatedPostSliderFilter01_obj.owlcarousel2_filter( filter );
+                });
+            }
+        });
+    });
+    tw_stretch_slider();
+    function tw_stretch_slider() {
+        var i = $(window).width();
+        $(".row .tw-stretch-element-inside-column-slider").each(function() {
+            var $this = $(this),
+                row = $this.closest(".row"),
+                cols = $this.closest('[class^="col-"]'),
+                colsheight = $this.closest('[class^="col-"]').height(),
+                rect = this.getBoundingClientRect(),
+                l = row[0].getBoundingClientRect(),
+                s = cols[0].getBoundingClientRect(),
+                d = i - rect.right,
+                u = i - l.right + (parseFloat(row.css("padding-right")) || 0),
+                f = i - s.right,
+                styles = {
+                    "margin-right": 0
+                };
+            if (Math.round(u) === Math.round(f)) {
+                var w = parseFloat($this.css("margin-right") || 0);
+                styles["margin-right"] = w - d;
+            }
+            $this.css(styles);
+        });
+    }
+    // Blog Post
+    $(window).on('elementor/frontend/init', function () {
+        elementorFrontend.hooks.addAction('frontend/element_ready/tw-latest-blog.default', function ($scope, $) {
+            var $wrap  = $scope.find('.lb_slider_wrap');
+            var $slide = $scope.find('.cmblogSlider');
+
+            var autoplay = ($wrap.attr('data-autoplay') == 1) ? true : false;
+            var loop     = ($wrap.attr('data-loop') == 1) ? true : false;
+            var nav      = ($wrap.attr('data-nav') == 1) ? true : false;
+            var dots     = ($wrap.attr('data-dots') == 1) ? true : false;
+
+            $slide.owlCarousel({
+                autoplay: autoplay,
+                loop: loop,
+                margin: 30,
+                responsiveClass: true,
+                nav: nav,
+                navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                dots: dots,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    992: {
+                        items: 3
+                    }
+                }
+            });
+        });
+    });
+    // Shop Single Image
+    if ($('.gallery_sliders').length > 0) {
+        $('.gallery_sliders').lightSlider({
+            gallery: true,
+            item: 1,
+            thumbItem: 4,
+            slideMargin: 0,
+            speed: 700,
+            pause: 5000,
+            auto: true,
+            loop: true,
+            galleryMargin: 0,
+            thumbMargin: 9,
+            currentPagerPosition: 'left',
+            onSliderLoad: function () {
+                $('.gallery_sliders').removeClass('cS-hidden');
+            }
+        });
+    }
+    // Shop Featured Products
+    $(window).on('elementor/frontend/init', function() {
+        elementorFrontend.hooks.addAction('frontend/element_ready/tw-product-slider.default', function($scope, $) {
+            var $wrap = $scope.find('.product_carousel_wrap');
+            var $slide = $scope.find('.product_carousel');
+            
+            var autoplay = ($wrap.attr('data-autoplay') == 1 ) ? true : false;
+            var loop = ($wrap.attr('data-loop') == 1 ) ? true : false;
+            var nav = ($wrap.attr('data-nav') == 1 ) ? true : false;
+            var dots = ($wrap.attr('data-dots') == 1 ) ? true : false;
+            var gapping = ($wrap.attr('data-gapping')*1 > 0 ) ? $wrap.attr('data-gapping')*1 : 0;
+            var item = ($wrap.attr('data-item') > 0 ) ? $wrap.attr('data-item') : 4;
+            var item2 = ($wrap.attr('data-item2') > 0 ) ? $wrap.attr('data-item2') : 3;
+            var item3 = ($wrap.attr('data-item3') > 0 ) ? $wrap.attr('data-item3') : 2;
+            
+            if($slide.length > 0){
+                $slide.owlCarousel({
+                    autoplay: autoplay,
+                    loop: loop,
+                    margin: gapping,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    responsiveClass:true,
+                    responsive:{
+                        0:{
+                            items: 1
+                        },
+                        760:{
+                            items: item3
+                        },
+                        992:{
+                            items: item2
+                        },
+                        1200:{
+                            items: item
+                        }
+                    }
+                });
+            }
+        });
+    });
+    $(window).on('elementor/frontend/init', function () {
+        elementorFrontend.hooks.addAction('frontend/element_ready/tw-team.default', function ($scope, $) {
+            var $wrap   = $scope.find('.tmSlider_wrap');
+            var $slide  = $scope.find('.tmSlider');
+
+            var autoplay = ($wrap.attr('data-autoplay') == '1') ? true : false;
+            var loop     = ($wrap.attr('data-loop') == '1') ? true : false;
+            var nav      = ($wrap.attr('data-nav') == '1') ? true : false;
+            var dots     = ($wrap.attr('data-dots') == '1') ? true : false;
+            var item1    = ($wrap.attr('data-item1') != '') ? parseInt($wrap.attr('data-item1'), 10) : 3;
+            var item2    = ($wrap.attr('data-item2') != '') ? parseInt($wrap.attr('data-item2'), 10) : 3;
+            var item3    = ($wrap.attr('data-item3') != '') ? parseInt($wrap.attr('data-item3'), 10) : 2;
+            var gapping  = ($wrap.attr('data-gapping')*1 > 0 ) ? $wrap.attr('data-gapping')*1 : 0;
+
+            if ($slide.length > 0) {
+                $slide.owlCarousel({
+                    autoplay: autoplay,
+                    loop: loop,
+                    margin: gapping,
+                    nav: nav,
+                    navText: ['<i class="Chmk-angel-left"></i>', '<i class="Chmk-angel-right"></i>'],
+                    dots: dots,
+                    responsiveClass: true,
+                    smartSpeed: 600,
+                    responsive: {
+                        0: {
+                            items: 1,
+                        },
+                        768: {
+                            items: item3
+                        },
+                        1024: {
+                            items: item2
+                        },
+                        1200: {
+                            items: item1
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    /*------------------------------------------------------
+    /  05. Funfact Counters
+    /------------------------------------------------------*/
+    $('.counters').appear();
+    $(document.body).on('appear', '.counters', function (e, $affected) {
+        $affected.each(function () {
+            var $this = $(this);
+            if (!$this.hasClass('appeared')) {
+                var numbers = $this.attr('data-count');
+                var suffix = $this.attr('data-suffix');
+                jQuery({ Counter: 0 }).animate({ Counter: numbers }, {
+                    duration: 3000,
+                    easing: 'swing',
+                    step: function () {
+                        var num = Math.ceil(this.Counter).toString();
+                        $this.html(num + '' + suffix);
+                    }
+                });
+                $this.addClass('appeared');
+            }
+        });
+    });
+
+    /*------------------------------------------------------
+    /  06. Projects Filter
+    /------------------------------------------------------*/
+    $(window).on('load', function () {
+        if ($(".shaff_grid").length > 0) {
+            var $grid = $('.shaff_grid');
+
+            var Shuffle = window.Shuffle;
+            var element = document.querySelector('.shaff_grid');
+            var sizer = element.querySelector('.shafSizer');
+
+            var shaff_inst = new Shuffle(element, {
+                itemSelector: '.shaff_item',
+                sizer: sizer // could also be a selector: '.my-sizer-element'
+            });
+            $('.mashFilterUL li').on('click', function () {
+                $('.mashFilterUL li').removeClass('active');
+                $(this).addClass('active');
+                var groupName = $(this).attr('data-group');
+                shaff_inst.filter(groupName);
+            });
+        }
+        if ($(".service_grid").length > 0) {
+            var $grid = $('.service_grid');
+
+            var Shuffle = window.Shuffle;
+            var element = document.querySelector('.service_grid');
+            var sizer = element.querySelector('.shafSizer');
+
+            var shaff_inst = new Shuffle(element, {
+                itemSelector: '.shaff_item',
+                sizer: sizer // could also be a selector: '.my-sizer-element'
+            });
+        }
+    });
+
+    /*------------------------------------------------------
+    /  07. All Popup
+    /------------------------------------------------------*/
+    if ($('.imgPopup').length > 0) {
+        $('.imgPopup').lightcase({
+            transition: 'elastic',
+            showSequenceInfo: false,
+            slideshow: false,
+            swipe: true,
+            showTitle: false,
+            showCaption: false,
+            controls: true
+        });
+    }
+    if ($('.popup_video').length > 0) {
+        $('.popup_video').lightcase({
+            transition: 'elastic',
+            showSequenceInfo: false,
+            slideshow: false,
+            swipe: true,
+            showTitle: false,
+            showCaption: false,
+            controls: true
+        });
+    }
+
+    /*--------------------------------------------------------
+    / 08. Skill Bar
+    /----------------------------------------------------------*/
+    $(window).on('elementor/frontend/init', function () {
+        elementorFrontend.hooks.addAction('frontend/element_ready/tw-skill-bar.default', function ($scope, $) {
+            var $wrap = $scope.find('.single_skill');
+            $wrap.appear();
+            $wrap.on('appear', loadSkills);
+        });
+    });
+    var coun = true;
+    function loadSkills(){
+        $(".single_skill").each(function () {
+            var datacount = $(this).attr("data-parcent");
+            $(".ss_child", this).animate({'width': datacount + '%'}, 2000);
+            if (coun){
+                $(this).find('.ss_parent h4').each(function () {
+                    var $this = $(this);
+                    $({Counter: 0}).animate({Counter: datacount}, {
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function () {
+                            $this.text(Math.ceil(this.Counter) + '%');
+                        }
+                    });
+                });
+            }
+        });
+        coun = false;
+    }
+
+    /*--------------------------------------------------------
+    / 09. Menu PopUp 
+    /---------------------------------------------------------*/
+    $('#humBurger').on('click', function (e) {
+        e.preventDefault();
+        $('.popup_menu').addClass('active').fadeIn();
+        setTimeout(function () {
+            if ($('.popup_menu').hasClass('active')) {
+                var tlMenu = new TimelineLite();
+                tlMenu.set($(".animated_menu"), {y: 80, opacity: 0});
+                $(".animated_menu").each(function (index, element) {
+                    tlMenu.to(element, 0.5, {y: 0, opacity: 1, delay: 0.4, ease: Power2.easeOut}, index * 0.1)
+                });
+            } else {
+                var tlMenu = new TimelineLite();
+                $(".animated_menu").each(function (index, element) {
+                    tlMenu.to(element, 0.25, {y: -80, opacity: 0, ease: Power2.easeIn}, index * 0.05)
+                });
+            }
+        }, 20);
+    });
+    if ($(".menu_popup").length > 0){
+        $(".menu_popup ul li.menu-item-has-children > a").on('click', function (e) {
+            e.preventDefault();
+            if ($(this).parent('li').hasClass('active')){
+                $(this).parent('li').removeClass('active');
+                $(this).next('ul').slideToggle();
+            } else {
+                $(this).siblings('ul').slideToggle();
+                $(this).parent('li').addClass('active');
+            }
+        });
+    }
+    $('#close_menu').on('click', function () {
+        var tlMenu = new TimelineLite();
+        $(".animated_menu").each(function (index, element) {
+            tlMenu.to(element, 0.25, {y: -80, opacity: 0, ease: Power2.easeIn}, index * 0.05)
+        });
+        $(".popup_menu ul.sub-menu").slideUp('slow', function () {
+            $(".menu-item-has-children.active").removeClass("active");
+            $('.popup_menu').removeClass('active');
+        });
+        setTimeout(function () {
+            $('.popup_menu').fadeOut();
+        }, 500);
+    });
+    $(window).on("load",function(){
+        $(".menu_popup > ul").mCustomScrollbar({
+            setHeight:320
+        });
+    });
+    
+    
+    /*--------------------------------------------------------
+    / 10. Back To Top
+    /---------------------------------------------------------*/
+    var back = $("#backtotop"),
+        body = $("body, html");
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() > $(window).height()) {
+            back.css({ bottom: '30px', opacity: '1', visibility: 'visible' });
+        } else {
+            back.css({ bottom: '-30px', opacity: '0', visibility: 'hidden' });
+        }
+    });
+    body.on("click", "#backtotop", function (e) {
+        e.preventDefault();
+        body.animate({ scrollTop: 0 }, 800);
+        return false;
+    });
+
+    /*--------------------------------------------------------
+    / 11. Qty
+    /----------------------------------------------------------*/
+    $("body").on('click', '.btnMinus, .btnPlus', function (e) {
+        e.preventDefault();
+        let cart_qty = $(this).closest('.pdq_main').find('.carqty'),
+            vals = parseInt(cart_qty.val(), 10),
+            step = parseInt(cart_qty.attr('step'), 10);
+        if (!vals || vals === '' || vals === undefined || isNaN(vals)) vals = 0;
+        if (!step || step === '' || step === undefined || isNaN(step)) step = 1;
+        if ($(this).is('.btnMinus')) {
+            if (vals > 1) {
+                vals -= step;
+                cart_qty.val(vals).trigger('change');
+            } else {
+                cart_qty.val(vals).trigger('change');
+            }
+        } else {
+            vals += step;
+            cart_qty.val(vals).trigger('change');
+        }
+    });
+
+    /*--------------------------------------------------------
+    / 12. Preloader
+    /---------------------------------------------------------*/
+    $(window).on('load', function () {
+        var preload = $('.preloader');
+        if (preload.length > 0) {
+            preload.delay(800).fadeOut('slow');
+        }
+    });
+
+    /*--------------------------------------------------------
+    / 13. Back To Top
+    /---------------------------------------------------------*/
+    $(".scrollTo").on('click', function(e){
+        e.preventDefault();
+        $('html, body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+        return false;
+    });
+
+    /*--------------------------------------------------------
+    / 14. Google Maps
+    /----------------------------------------------------------*/
+    $(window).on('elementor/frontend/init', function () {
+        elementorFrontend.hooks.addAction('frontend/element_ready/tw-google-map.default', function ($scope, $) {
+            var $gmap = $scope.find('.google_map');
+            if (!$gmap.length) {
+                return;
+            }
+            $gmap.each(function () {
+                var $this = $(this);
+                var gmapid = $this.attr('id');
+                var $g_map_this = $('#' + gmapid);
+
+                var marker = $g_map_this.attr('data-marker');
+                var zoom = parseInt($g_map_this.attr('data-zoom'), 10);
+                var style = parseInt($g_map_this.attr('data-map-style'), 10);
+
+                var coordinates = $g_map_this.attr('data-coordinates');
+                var coordinates = $.parseJSON(coordinates);
+                var primary_lat = '';
+                var primary_lon = '';
+                var i = 1;
+                for (let value of Object.values(coordinates)) {
+                    if (i == 1) {
+                        primary_lat = value.lati;
+                        primary_lon = value.long;
+                    }
+                    i++;
+                }
+
+                var map;
+                map = new GMaps({
+                    el: '#' + gmapid,
+                    lat: primary_lat,
+                    lng: primary_lon,
+                    scrollwheel: false,
+                    zoom: zoom,
+                    zoomControl: true,
+                    panControl: false,
+                    streetViewControl: true,
+                    mapTypeControl: true,
+                    overviewMapControl: false,
+                    clickable: false
+                });
+                var image = "";
+                var i = 1;
+                for (let value of Object.values(coordinates)) {
+                    if (i == 1) {
+                        map.addMarker({
+                            lat: value.lati,
+                            lng: value.long,
+                            icon: marker,
+                            animation: google.maps.Animation.DROP,
+                            verticalAlign: "bottom",
+                            horizontalAlign: "center",
+                            backgroundColor: "#d3cfcf"
+                        });
+                    } else {
+                        map.addMarker({
+                            lat: value.lati,
+                            lng: value.long,
+                            icon: marker,
+                            animation: google.maps.Animation.DROP,
+                            backgroundColor: "#d3cfcf"
+                        });
+                    }
+                    i++;
+                }
+                if (style != 1) {
+                    var styles = [
+                        {
+                            "featureType": "road",
+                            "stylers": [
+                                {"color": "#9dbb91"}
+                            ]
+                        }, {
+                            "featureType": "water",
+                            "stylers": [
+                                {"color": "#aacbd9"}
+                            ]
+                        }, {
+                            "featureType": "landscape",
+                            "stylers": [
+                                {"color": "#ebf1e9"}
+                            ]
+                        }, {
+                            "elementType": "labels.text.fill",
+                            "stylers": [
+                                {"color": "#2c2c2c"}
+                            ]
+                        }, {
+                            "featureType": "poi",
+                            "stylers": [
+                                {"color": "#ceddc8"}
+                            ]
+                        }, {
+                            "elementType": "labels.text",
+                            "stylers": [
+                                {"saturation": 1},
+                                {"weight": 0.1},
+                                {"color": "#2c2c2c"}
+                            ]
+                        }
+
+                    ];
+                    map.addStyle({
+                        styledMapName: "Styled Map",
+                        styles: styles,
+                        mapTypeId: "map_style"
+                    });
+                    map.setStyle("map_style");
+                }
+            });
+        });
+    });
+
+    /*------------------------------------------------------
+    /  15. Nice Selects
+    /------------------------------------------------------*/
+    if ($(".variations select").length > 0){ 
+        $(".variations select").niceSelect();
+    };
+    $('body').on('click', '.reset_variations', function () {
+        $(".variations select").niceSelect('update');
+    });
+    
+
+})(jQuery)

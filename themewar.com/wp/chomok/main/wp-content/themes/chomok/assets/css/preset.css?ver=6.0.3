@@ -1,0 +1,486 @@
+/*
+Theme Name: Chomok
+Theme URI: http://themewar.com/wp/chomok/
+Author: ThemeWar
+Author URI: http://themewar.com/
+Description: Chomok - Modern Architecture & Interior WordPress Theme
+Version: 1.0
+License:
+License URI:
+*/
+
+
+/*==================================
+    [Table of contents]
+===================================
+    01. Basic Typography
+    02. Links & Buttons
+    03. Section Titles
+    04. Section Notes
+    05. Sub Headings
+    06. Column Padding Margin Custom Define
+    07. Share Details On Social
+*/
+
+/*------------------------------------------------------
+/  01. Basic Typography
+/------------------------------------------------------*/
+body,html{
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    color: #777777;
+    letter-spacing: 1.6px;
+    font-style: normal;
+}
+p{
+    margin: 0 0 15px;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Bebas Neue', cursive;
+    color: #141414;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 1px;
+    margin: 0 0 15px;
+}
+.bebas{
+    font-family: 'Bebas Neue', cursive;
+}
+ul li{
+    list-style: none;
+}
+a{
+    color: var(--theme-color);
+    text-decoration: none;
+    transition: all ease 350ms;
+}
+a:hover {
+    color: #141414;
+    text-decoration: none;
+}
+a:focus,
+.button:focus, input:focus, select:focus, textarea:focus{
+    text-decoration: none;
+    outline: none;
+}
+a, button {
+    color: #1696e7;
+    outline: none;
+    font-family: 'Bebas Neue', cursive;
+    font-weight: 400;
+    transition: all ease 300ms;
+    -moz-transition: all ease 300ms;
+    -webkit-transition: all ease 300ms;
+}
+button:focus,input:focus,input:focus,textarea,textarea:focus{
+    outline: 0;
+}
+.elementor-widget:not(:last-child) {
+    margin-bottom: 0 !important;
+}
+:root{
+    --theme-color: #a9997a;
+}
+
+/*------------------------------------------------------
+/  02. Links & Buttons
+/------------------------------------------------------*/
+.chmk-link{
+    font-size: 16px;
+    color: #141414;
+    line-height: 1;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+}
+.chmkl-grey{
+	color: #777777;
+}
+.chmk-link i{
+    padding-left: 8px;
+    font-size: 14px;
+    position: relative;
+    top: 1px;
+    right: 0;
+    transition: right ease 300ms;
+    -moz-transition: right ease 300ms;
+    -webkit-transition: right ease 300ms;
+}
+.chmk-link:hover i{
+    right: -5px;
+}
+.chmk-link:hover, .chmkl-grey:hover{
+    color: var(--theme-color);
+}
+.chmk-btn{
+    font-size: 16px;
+    background: #141414;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    height: 59px;
+    padding: 20px 28px 16px 29px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+}
+.chmk-btnReverse{
+    background: var(--theme-color);
+}
+.chmk-btn-02{
+    background: #141414;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    height: 57px;
+    padding: 12px 32px 11px 34px;
+    display: inline-flex;
+    align-items: center;
+    border: 0;
+}
+.chmk-btn i{
+    padding-left: 8px;
+    font-size: 14px;
+    position: relative;
+    top: 0;
+}
+.chmk-btn-02 i{
+    padding-left: 8px;
+    font-size: 14px;
+    position: relative;
+    top: 0;
+}
+.chmk-btn::before{
+    position: absolute;
+    content: '';
+    height: calc(100% - 10px);
+    width: 50px;
+    background: transparent;
+    border: 1px solid var(--theme-color);
+    border-right: 0;
+    top: 5px;
+    left: 5px;
+    transition: all ease 300ms;
+    -moz-transition: all ease 300ms;
+    -webkit-transition: all ease 300ms;
+}
+.chmk-btnReverse::before{
+    border: 1px solid #fff;
+    border-right: 0;
+}
+.chmk-btn::after{
+    position: absolute;
+    content: '';
+    height: calc(100% - 10px);
+    width: 50px;
+    background: transparent;
+    border: 1px solid var(--theme-color);
+    border-left: 0;
+    top: 5px;
+    right: 5px;
+    transition: all ease 300ms;
+    -moz-transition: all ease 300ms;
+    -webkit-transition: all ease 300ms;
+}
+.chmk-btnReverse::after{
+    border: 1px solid #fff;
+    border-left: 0;
+}
+.chmk-btn:hover{
+    background: var(--theme-color);
+    color: #fff;
+}
+.chmk-btnReverse:hover{
+    background: #141414;
+    color: #fff;
+}
+.chmk-btn-02:hover{
+    background: var(--theme-color);
+    color: #fff;
+}
+.chmk-btn:hover::after,
+.chmk-btn:hover::before{
+    width: 25px;
+    border-color: #fff;
+}
+.chmk-btnReverse:hover::after,
+.chmk-btnReverse:hover::before{
+    width: 25px;
+    border-color: var(--theme-color);
+}
+.chmk-video-btn {
+    background: var(--theme-color);
+    padding: 0;
+    width: 120px;
+    height: 120px;
+    display: inline-flex;
+    border-radius: 50%;
+    align-items: center;
+    line-height: 120px;
+    justify-content: center;
+    color: #fff;
+    font-size: 24px;
+    
+    transition: all ease 300ms;
+    -moz-transition: all ease 300ms;
+    -webkit-transition: all ease 300ms;
+    
+    animation: video_shadows 1s linear infinite;
+}
+.chmk-video-btn-02 {
+    background: #FFF;
+    padding: 0;
+    width: 120px;
+    height: 120px;
+    display: inline-flex;
+    border-radius: 50%;
+    align-items: center;
+    line-height: 120px;
+    justify-content: center;
+    color: var(--theme-color);
+    font-size: 24px;
+
+    transition: all ease 300ms;
+    -moz-transition: all ease 300ms;
+    -webkit-transition: all ease 300ms;
+
+    animation: video_shadows 1s linear infinite;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+a.chmk-video-btn:hover{
+    background: #FFF;
+    color: var(--theme-color);
+}
+a.chmk-video-btn-02:hover{
+    background: var(--theme-color);
+    color: #FFF;
+}
+@keyframes video_shadows {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, .14), 0 0 0 20px rgba(255, 255, 255, .14), 0 0 0 40px rgba(255, 255, 255, .14);
+    }
+    100% {
+        box-shadow: 0 0 0 20px rgba(255, 255, 255, .14), 0 0 0 40px rgba(255, 255, 255, .14), 0 0 0 60px rgba(255, 255, 255, 0);
+    }
+}
+
+
+/*------------------------------------------------------
+/  03. Section Titles
+/------------------------------------------------------*/
+.section-title{
+    position: relative;
+    margin-bottom: 65px;
+}
+.section-title-dark{
+    position: relative;
+    margin-bottom: 68px;
+}
+.section-title h2{
+    color: #141414;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 4.8px;
+    margin-bottom: 19px;
+}
+.section-title-dark h2{
+    color: #ffffff;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 4.8px;
+    margin: 0 0 18px;
+}
+.section-title p{
+    font-size: 14px;
+    color: #777777;
+    line-height: 1;
+    letter-spacing: 1.4px;
+    margin-bottom: 18px;
+}
+.section-title-dark p{
+    font-size: 14px;
+    color: #777777;
+    line-height: 1;
+    letter-spacing: 1.4px;
+    margin-bottom: 18px;
+}
+.section-title i{
+    color: var(--theme-color);
+    font-size: 44px;
+}
+.section-title-dark i{
+    color: var(--theme-color);
+    font-size: 44px;
+}
+.sectionDarkService{
+    position: relative;
+    margin-bottom: 45px;
+}
+.sectionDarkAbout{
+    margin-bottom: 51px;
+}
+.chm_heading i{
+    position: relative;
+}
+
+/*------------------------------------------------------
+/  04. Section Notes
+/------------------------------------------------------*/
+.section-note{
+    margin-top: 62px;
+}
+.section-note-dark{
+    margin-top: 54px;
+}
+.section-note p{
+    font-family: 'Bebas Neue', cursive;
+    color: #777777;
+    line-height: 30px;
+    margin: 0;
+}
+.section-note-dark p{
+    font-family: 'Bebas Neue', cursive;
+    color: #777777;
+    line-height: 30px;
+    margin: 0;
+}
+.section-note p a{
+    color: var(--theme-color);
+}
+.section-note-dark p a{
+    color: var(--theme-color);
+}
+.section-note p a:hover{
+    color: #141414;
+}
+.section-note-dark p a:hover{
+    color: #ffffff;
+}
+.section-note-darkService{
+    margin-top: 51px;
+}
+.projectSectionNote{
+    margin-top: 31px;
+}
+
+/*------------------------------------------------------
+/  05. Sub Headings
+/------------------------------------------------------*/
+.sub-heading{
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 1.6px;
+    margin: 0;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+.sub-heading i{
+    color: var(--theme-color);
+    font-size: 38px;
+    margin-right: 7px;
+}
+.sub-heading-des{
+    font-size: 36px;
+    line-height: 1.33;
+    letter-spacing: 3.6px;
+    margin: 21px 75px 28px 0;
+}
+
+/*------------------------------------------------------
+/  06. Column Padding Margin Custom Define
+/------------------------------------------------------*/
+.abTC-Pr {
+    padding-right: 0;
+    z-index: 2;
+}
+.abTC-Pl {
+    padding-left: 0;
+    z-index: 1;
+}
+.CW01{
+    flex: 0 0 57%;
+    -ms-flex: 0 0 57%;
+    max-width: 57%;
+}
+.CW02{
+    flex: 0 0 43%;
+    -ms-flex: 0 0 43%;
+    max-width: 43%;
+}
+
+/*------------------------------------------------------
+/  07. Share Details On Social
+/------------------------------------------------------*/
+.shareDetailsOnSocial{
+    display: flex;
+    margin-top: 23px;
+}
+.elementor-align-right .shareDetailsOnSocial{
+    justify-content: flex-end;
+}
+.elementor-align-center .shareDetailsOnSocial{
+    justify-content: center;
+}
+.shareDetailsOnSocial span{
+    margin-right: 19px;
+}
+.shareDetailsOnSocial a{
+    font-size: 15px;
+    color: #000000;
+    margin-right: 21px;
+}
+.shareDetailsOnSocial a.fac{
+    color: #45619d;
+}
+.shareDetailsOnSocial a.twi{
+    color: #42c0fb;
+}
+.shareDetailsOnSocial a.mai{
+    color: #F7D91A;
+}
+.shareDetailsOnSocial a.lin{
+    color: #007AB5;
+}
+.shareDetailsOnSocial a.pin{
+    color: #C41F26;
+}
+.shareDetailsOnSocial a.wha{
+    color: #00A356;
+}
+.shareDetailsOnSocial a.dig{
+    color: #0D2535;
+}
+.shareDetailsOnSocial a.tum{
+    color: #2F4155;
+}
+.shareDetailsOnSocial a.red{
+    color: #F74300;
+}
+.Posttags{
+    margin-top: 12px;
+}
+.Posttags a{
+    color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+.Posttags a:hover{
+    color: var(--theme-color);
+}
